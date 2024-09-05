@@ -1,4 +1,4 @@
-import { Box, Button, TextField, FormControl, Select, MenuItem, FormHelperText, Typography, InputLabel   } from "@mui/material";
+import { Box, Button, TextField, FormControl, Select, MenuItem, FormHelperText, Typography, InputLabel, LinearProgress } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -6,6 +6,7 @@ import Header from "../../../../components/Header";
 import { useState, useEffect  } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { uploadVideoToFirebase } from "/app/src/services/firebaseService";
 
 const Usuario = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -13,13 +14,21 @@ const Usuario = () => {
   const [apiError, setApiError] = useState(null);
   const [lugarOptions, setlugarOptions] = useState([]);
   const [horarioOptions, sethorarioOptions] = useState([]);
+
+  const [videoFile, setVideoFile] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+
   const navigate = useNavigate(); 
   const apiUrl = process.env.REACT_APP_APP_USUARIOS_URL;
   const apiLugarUrl = process.env.REACT_APP_APP_LUGARESTRABAJO_URL;
   const apiHorarioUrl = process.env.REACT_APP_APP_HORARIOS_URL;
 
-   const handleSubmitApi = async (values) => {
+  const handleSubmitApi = async (values) => {
     try {
+      if (videoFile) {
+        const videoURL = await uploadVideoToFirebase(videoFile, setUploadProgress); 
+        values.face_source_url = videoURL;
+      }
       const response = await axios.post(`${apiUrl}/usuario`, values);
       setApiResponse(response.data);
       setApiError(null);
@@ -56,15 +65,22 @@ const Usuario = () => {
     fetchHorariosOptions();
   }, []);
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setVideoFile(file);
+    } else {
+      alert("Por favor selecciona un archivo de video.");
+    }
+  };
+
   return (
     <Box m="20px">
       <Header
         title="CREAR USUARIO"
         subtitle="Establece un nuevo registro de usuario. 
-        La URL del video para el reconocimiento facial debe proporcionar acceso directo 
-        al video sin ninguna pagina intermedia de edición o visualización, se recomienda 
-        utilizar plataformas que faciliten el acceso a este tipo de enlaces como son 
-        Firebase o Discord."
+        Asegúrese de elegir un archivo de video valido para
+        el entrenamiento de reconocimiento facial."
       />
       <Formik
         onSubmit={handleSubmitApi}
@@ -263,19 +279,31 @@ const Usuario = () => {
                   <FormHelperText>{errors.id_luid_horariogar}</FormHelperText>
                 )}
               </FormControl>
-              <TextField
+              <FormControl
                 fullWidth
                 variant="filled"
-                type="url"
-                label="URL Video Rostro"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.face_source_url}
-                name="face_source_url"
-                error={!!touched.face_source_url && !!errors.face_source_url}
-                helperText={touched.face_source_url && errors.face_source_url}
                 sx={{ gridColumn: "span 4" }}
-              />
+                error={!!touched.video && !!errors.video}
+              >
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="file"
+                  label="Cargar Video de Reconocimiento Facial"
+                  InputLabelProps={{ shrink: true }}
+                  onBlur={handleBlur}
+                  onChange={handleFileChange}
+                  name="video"
+                  error={!!touched.video && !!errors.video}
+                  helperText={touched.video && errors.video}
+                />
+                {uploadProgress > 0 && (
+                  <Box sx={{ width: '100%', mt: 1 }}>
+                    <Typography variant="body2">Progreso de subida: {uploadProgress}%</Typography>
+                    <LinearProgress variant="determinate" value={uploadProgress} />
+                  </Box>
+                )}
+              </FormControl>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
@@ -349,7 +377,7 @@ const initialValues = {
   apellidos: "",
   fecha_nacimiento: "",
   email: "",
-  face_source_url: "",
+  face_source_url: "http://example.com",
   telefono_movil: "",
   telefono_fijo: "",
   direccion: "",
