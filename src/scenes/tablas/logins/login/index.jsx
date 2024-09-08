@@ -92,8 +92,15 @@ const Login = () => {
   };
 
   useEffect(() => {
-    fetchUsuariosOptions();
-    fetchUsernameOptions();
+    const fetchData = async () => {
+      await fetchUsuariosOptions();
+      await fetchUsernameOptions();
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     if (usuarioOptions.length > 0 && usernameOptions.length > 0) {
       const filteredUsuarios = filterUsuarios(usuarioOptions, usernameOptions);
       setFilteredUsuarioOptions(filteredUsuarios);
@@ -227,7 +234,7 @@ const Login = () => {
                 sx={{ gridColumn: "span 2" }}
                 error={!!touched.is_active && !!errors.is_active}
               >
-                <InputLabel htmlFor="sexo_pac-select" sx={{ fontSize: 14 }}>
+                <InputLabel htmlFor="is_active-select" sx={{ fontSize: 14 }}>
                   Estado Activo
                 </InputLabel>
                 <Select
@@ -278,7 +285,10 @@ const Login = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  id_usuario: yup.number().required("required"),
+  id_usuario: yup
+    .number()
+    .required("required")
+    .moreThan(0, "El id_usuario no puede ser 0, elija un valor valido"),
   username: yup.string().required("required"),
   password: yup
     .string()

@@ -61,8 +61,12 @@ const Usuario = () => {
   };
 
   useEffect(() => {
-    fetchLugaresOptions();
-    fetchHorariosOptions();
+    const fetchData = async () => {
+      await fetchLugaresOptions();
+      await fetchHorariosOptions();
+    };
+
+    fetchData();
   }, []);
 
   const handleFileChange = (event) => {
@@ -367,8 +371,14 @@ const checkoutSchema = yup.object().shape({
     .string()
     .min(5, "La dirección debe contener al menos 5 caracteres")
     .required("La dirección es obligatoria"),
-  id_lugar: yup.number().required("required"),
-  id_horario: yup.number().required("required"),
+  id_lugar: yup
+    .number()
+    .required("required")
+    .moreThan(0, "El id_lugar no puede ser 0, elija un valor valido"),
+  id_horario: yup
+    .number()
+    .required("required")
+    .moreThan(0, "El id_horario no puede ser 0, elija un valor valido"),
 });
 
 const initialValues = {

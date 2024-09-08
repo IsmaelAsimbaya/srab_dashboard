@@ -52,8 +52,12 @@ const Marcacion = () => {
   };
 
   useEffect(() => {
-    fetchUsuariosOptions();
-    fetchLugaresOptions();
+    const fetchData = async () => {
+      await fetchUsuariosOptions();
+      await fetchLugaresOptions();
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -258,7 +262,10 @@ const Marcacion = () => {
 const timeRegExp = /^([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$/;
 
 const checkoutSchema = yup.object().shape({
-  id_usuario: yup.number().required("required"),
+  id_usuario: yup
+    .number()
+    .required("required")
+    .moreThan(0, "El id_usuario no puede ser 0, elija un valor valido"),
   fecha: yup.date().required("required"),
   hora: yup
     .string()

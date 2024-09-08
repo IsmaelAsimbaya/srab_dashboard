@@ -27,6 +27,9 @@ import ActMarcacion from "./scenes/tablas/marcaciones/marcacionActualizar/index"
 import ActLogin from "./scenes/tablas/logins/loginActualizar/index";
 import ActUsuario from "./scenes/tablas/usuarios/usuarioActualizar/index";
 
+import Face from "./scenes/tablas/faceAuth/face";
+import FaceInfo from "./scenes/tablas/faceAuth/faceInfo";
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -61,6 +64,9 @@ function App() {
               <Route path="/actMarcacion/:id_marcacion" element={<ActMarcacion />} />
               <Route path="/actLogin/:id_login" element={<ActLogin />} />
               <Route path="/actUsuario/:id_usuario" element={<ActUsuario />} />
+
+              <Route path="/face" element={<Face />} />
+              <Route path="/infoFace" element={<FaceInfo />} />
             </Routes>
           </main>
         </div>

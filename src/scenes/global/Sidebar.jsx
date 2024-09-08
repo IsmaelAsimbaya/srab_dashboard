@@ -16,6 +16,8 @@ import AddModeratorOutlinedIcon from '@mui/icons-material/AddModeratorOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
+import ContactPageOutlinedIcon from '@mui/icons-material/ContactPageOutlined';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useAuth } from "../../AuthContext";
 import Snackbar from "@mui/material/Snackbar";
@@ -147,10 +149,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Panel de Administracion
+                  Panel de Administración
                 </Typography>
                 {/* <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Panel de Administracion
+                  Panel de Administración
                 </Typography> */}
               </Box>
             </Box>
@@ -216,7 +218,7 @@ const Sidebar = () => {
             >
               Agregar
             </Typography>
-            
+
             <Item
               title="Lugares Trabajo"
               to="/lugaresTrabajo"
@@ -260,7 +262,27 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Autenticación
+            </Typography>
+            <Item
+              title="Reconocimiento Facial"
+              to="/face"
+              icon={<AddReactionOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Registros Procesados"
+              to="/infoFace"
+              icon={<ContactPageOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </Box>
         </Menu>
       </ProSidebar>
