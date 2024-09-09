@@ -27,8 +27,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const admin_username = process.env.REACT_APP_ADMIN_DASHBOARD_USERNAME;
-  const admin_password = process.env.REACT_APP_ADMIN_DASHBOARD_PASSWORD;
+  const admin_username = window._env_.REACT_APP_ADMIN_DASHBOARD_USERNAME;
+  const admin_password = window._env_.REACT_APP_ADMIN_DASHBOARD_PASSWORD;
 
   const { username, password } = useAuth();
 

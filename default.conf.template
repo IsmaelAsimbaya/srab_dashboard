@@ -1,0 +1,32 @@
+server {
+    listen 5000;
+
+    location / {
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /env.js {
+        default_type "application/javascript";
+        return 200 '
+            window._env_ = {
+                REACT_APP_API_BASE_URL: "${REACT_APP_API_BASE_URL}",
+                REACT_APP_APP_USUARIOS_URL: "${REACT_APP_APP_USUARIOS_URL}",
+                REACT_APP_APP_LUGARESTRABAJO_URL: "${REACT_APP_APP_LUGARESTRABAJO_URL}",
+                REACT_APP_APP_HORARIOS_URL: "${REACT_APP_APP_HORARIOS_URL}",
+                REACT_APP_APP_MARCACIONES_URL: "${REACT_APP_APP_MARCACIONES_URL}",
+                REACT_APP_APP_LOGINS_URL: "${REACT_APP_APP_LOGINS_URL}",
+                REACT_APP_APP_PYAUTENBIO: "${REACT_APP_APP_PYAUTENBIO}",
+                REACT_APP_ADMIN_DASHBOARD_USERNAME: "${REACT_APP_ADMIN_DASHBOARD_USERNAME}",
+                REACT_APP_ADMIN_DASHBOARD_PASSWORD: "${REACT_APP_ADMIN_DASHBOARD_PASSWORD}",
+                REACT_APP_API_KEY: "${REACT_APP_API_KEY}",
+                REACT_APP_AUTH_DOMAIN: "${REACT_APP_AUTH_DOMAIN}",
+                REACT_APP_PROJECT_ID: "${REACT_APP_PROJECT_ID}",
+                REACT_APP_STORAGE_BUCKET: "${REACT_APP_STORAGE_BUCKET}",
+                REACT_APP_MESSAGING_SENDER_ID: "${REACT_APP_MESSAGING_SENDER_ID}",
+                REACT_APP_APP_ID: "${REACT_APP_APP_ID}",
+                REACT_APP_MEASUREMENT_ID: "${REACT_APP_MEASUREMENT_ID}"
+            };
+        ';
+    }
+}

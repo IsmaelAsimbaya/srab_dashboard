@@ -13,7 +13,7 @@ const ActHorario = () => {
   const [apiError] = useState(null);
   const [rows, setRows] = useState([]);
   const navigate = useNavigate(); 
-  const apiUrl = process.env.REACT_APP_APP_HORARIOS_URL;
+  const apiUrl = window._env_.REACT_APP_APP_HORARIOS_URL;
 
   const { id_horario } = useParams();
   const location = useLocation();

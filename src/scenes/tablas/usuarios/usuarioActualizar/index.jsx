@@ -20,9 +20,9 @@ const ActUsuario = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const navigate = useNavigate(); 
-  const apiUrl = process.env.REACT_APP_APP_USUARIOS_URL;
-  const apiLugarUrl = process.env.REACT_APP_APP_LUGARESTRABAJO_URL;
-  const apiHorarioUrl = process.env.REACT_APP_APP_HORARIOS_URL;
+  const apiUrl = window._env_.REACT_APP_APP_USUARIOS_URL;
+  const apiLugarUrl = window._env_.REACT_APP_APP_LUGARESTRABAJO_URL;
+  const apiHorarioUrl = window._env_.REACT_APP_APP_HORARIOS_URL;
 
   const { id_usuario } = useParams();
   const location = useLocation();

@@ -20,9 +20,9 @@ const Face = () => {
   const [filteredData, setFilteredData] = useState([]);
   
   const navigate = useNavigate();
-  const apiUrl = process.env.REACT_APP_APP_PYAUTENBIO;
-  const apiUsuariosUrl = process.env.REACT_APP_APP_USUARIOS_URL;
-  const apiLoginsUrl = process.env.REACT_APP_APP_LOGINS_URL;
+  const apiUrl = window._env_.REACT_APP_APP_PYAUTENBIO;
+  const apiUsuariosUrl = window._env_.REACT_APP_APP_USUARIOS_URL;
+  const apiLoginsUrl = window._env_.REACT_APP_APP_LOGINS_URL;
 
   const fetchUsuariosOptions = async () => {
     try {

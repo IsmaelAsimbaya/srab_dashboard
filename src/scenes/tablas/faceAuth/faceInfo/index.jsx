@@ -13,7 +13,7 @@ const FaceInfo = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [rows, setRows] = useState([]);
-  const apiUrl = process.env.REACT_APP_APP_PYAUTENBIO;
+  const apiUrl = window._env_.REACT_APP_APP_PYAUTENBIO;
 
   const [openDialog, setDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);

@@ -13,7 +13,7 @@ const ActLugar = () => {
   const [apiError] = useState(null);
   const [rows, setRows] = useState([]);
   const navigate = useNavigate(); 
-  const apiUrl = process.env.REACT_APP_APP_LUGARESTRABAJO_URL
+  const apiUrl = window._env_.REACT_APP_APP_LUGARESTRABAJO_URL
 
   const { id_lugar } = useParams();
   const location = useLocation();

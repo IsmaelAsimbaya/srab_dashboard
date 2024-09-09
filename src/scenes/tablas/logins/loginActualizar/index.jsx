@@ -33,8 +33,8 @@ const ActLogin = () => {
   const [usernameError, setUsernameError] = useState("");
 
   const navigate = useNavigate();
-  const apiUrl = process.env.REACT_APP_APP_LOGINS_URL;
-  const apiUsuariosUrl = process.env.REACT_APP_APP_USUARIOS_URL;
+  const apiUrl = window._env_.REACT_APP_APP_LOGINS_URL;
+  const apiUsuariosUrl = window._env_.REACT_APP_APP_USUARIOS_URL;
 
   const { id_login } = useParams();
   const location = useLocation();

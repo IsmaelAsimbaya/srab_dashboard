@@ -12,7 +12,7 @@ const Lugar = () => {
   const [apiResponse, setApiResponse] = useState(null);
   const [apiError, setApiError] = useState(null);
   const navigate = useNavigate(); 
-  const apiUrl = process.env.REACT_APP_APP_LUGARESTRABAJO_URL
+  const apiUrl = window._env_.REACT_APP_APP_LUGARESTRABAJO_URL
 
   const handleSubmitApi = async (values) => {
     try {

@@ -14,7 +14,7 @@ const HorarioInfo = () => {
   const colors = tokens(theme.palette.mode);
   const [rows, setRows] = useState([]);
   const navigate = useNavigate(); 
-  const apiUrl = process.env.REACT_APP_APP_HORARIOS_URL;
+  const apiUrl = window._env_.REACT_APP_APP_HORARIOS_URL;
 
   const [openDialog, setDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);

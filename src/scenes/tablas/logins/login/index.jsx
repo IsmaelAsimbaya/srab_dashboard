@@ -32,8 +32,8 @@ const Login = () => {
   const [usernameError, setUsernameError] = useState("");
 
   const navigate = useNavigate();
-  const apiUrl = process.env.REACT_APP_APP_LOGINS_URL;
-  const apiUsuariosUrl = process.env.REACT_APP_APP_USUARIOS_URL;
+  const apiUrl = window._env_.REACT_APP_APP_LOGINS_URL;
+  const apiUsuariosUrl = window._env_.REACT_APP_APP_USUARIOS_URL;
 
   const handleSubmitApi = async (values) => {
     try {
