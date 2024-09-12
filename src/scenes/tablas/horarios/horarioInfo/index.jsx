@@ -42,17 +42,15 @@ const HorarioInfo = () => {
       });
   }, [apiUrl]);
 
-  const editar = (props) => {
-    const { id_horario, horaEntrada, horaSalida, diasSemana, nombre } = props;
+  const editar = (row) => {
+    const { id_horario, diasHorario, nombre } = row;
     navigate(`/actHorario/${id_horario}`, {
       state: {
-        horaEntrada,
-        horaSalida,
-        diasSemana,
+        diasHorario,
         nombre,
       },
-    }); 
-  }
+    });
+  };
   
   const handleDeleteButtonClick  = (row) => {
     setSelectedRow(row);
@@ -90,6 +88,12 @@ const HorarioInfo = () => {
     setSnackbarOpen(false);
   };
 
+  const formatDiasHorario = (diasHorario) => {
+    return diasHorario.map((dia) => {
+      return `${dia.diaSemana}: ${dia.horaEntrada} - ${dia.horaSalida}`;
+    }).join(", ");
+  };
+
   const columns = [
     { 
       field: "id_horario", 
@@ -103,19 +107,10 @@ const HorarioInfo = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "horaEntrada",
-      headerName: "Hora de Entrada",
-      flex: 1,
-    },
-    {
-      field: "horaSalida",
-      headerName: "Hora de Salida",
-      flex: 1,
-    },
-    {
-      field: "diasSemana",
-      headerName: "Dias de la Semana",
-      flex: 1,
+      field: "diasHorario",
+      headerName: "Días y Horarios",
+      flex: 2,
+      renderCell: (params) => formatDiasHorario(params.row.diasHorario),
     },
     {
       headerName: "Opciones",
