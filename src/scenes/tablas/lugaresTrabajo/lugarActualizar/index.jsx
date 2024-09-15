@@ -226,14 +226,46 @@ const ActLugar = () => {
   );
 };
 
+const coordinateRegex = /^-?\d+(\.\d{6,}),\s-?\d+(\.\d{6,})$/;
+
 const checkoutSchema = yup.object().shape({
   nombreLugar: yup.string().required("required"),
   direccionLugar: yup.string().required("required"),
-  cord: yup.string().required("required"),
-  axis1: yup.string().required("required"),
-  axis2: yup.string().required("required"),
-  axis3: yup.string().required("required"),
-  axis4: yup.string().required("required"),
+  cord: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis1: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis2: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis3: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis4: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
 });
 
 export default ActLugar;

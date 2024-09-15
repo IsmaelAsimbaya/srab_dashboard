@@ -176,8 +176,8 @@ const Marcacion = () => {
                   <MenuItem value="" disabled>
                     Tipo de Marcación
                   </MenuItem>
-                  <MenuItem value="entrada">Entrada</MenuItem>
-                  <MenuItem value="salida">Salida</MenuItem>
+                  <MenuItem value="Entrada">Entrada</MenuItem>
+                  <MenuItem value="Salida">Salida</MenuItem>
                 </Select>
                 {touched.tipo && errors.tipo && (
                   <FormHelperText>{errors.tipo}</FormHelperText>
@@ -186,7 +186,7 @@ const Marcacion = () => {
               <FormControl
                 fullWidth
                 variant="filled"
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 2" }}
                 error={!!touched.ubicacion && !!errors.ubicacion}
               >
                 <InputLabel htmlFor="ubicacion-select" sx={{ fontSize: 14 }}>
@@ -220,6 +220,55 @@ const Marcacion = () => {
                   <FormHelperText>{errors.ubicacion}</FormHelperText>
                 )}
               </FormControl>
+              <FormControl
+                fullWidth
+                variant="filled"
+                sx={{ gridColumn: "span 2" }}
+                error={!!touched.estado && !!errors.estado}
+              >
+                <InputLabel htmlFor="estado-select" sx={{ fontSize: 14 }}>
+                  Estado
+                </InputLabel>
+                <Select
+                  value={values.estado}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="estado"
+                  displayEmpty
+                  inputProps={{
+                    name: "estado",
+                    id: "estado-select",
+                  }}
+                >
+                  <MenuItem value="" disabled>
+                    Estado de Marcación
+                  </MenuItem>
+                  <MenuItem value="Presente">Presente</MenuItem>
+                  <MenuItem value="Retraso">Retraso</MenuItem>
+                  <MenuItem value="Salida_anticipada">Salida anticipada</MenuItem>
+                  <MenuItem value="Permiso">Permiso</MenuItem>
+                  <MenuItem value="Vacaciones">Vacaciones</MenuItem>
+                  <MenuItem value="Enfermedad">Enfermedad</MenuItem>
+                  <MenuItem value="Falta">Falta</MenuItem>
+                  <MenuItem value="Falta_justificada">Falta Justificada</MenuItem>
+                </Select>
+                {touched.estado && errors.estado && (
+                  <FormHelperText>{errors.estado}</FormHelperText>
+                )}
+              </FormControl>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Observaciones"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.observaciones}
+                name="observaciones"
+                error={!!touched.observaciones && !!errors.observaciones}
+                helperText={touched.observaciones && errors.observaciones}
+                sx={{ gridColumn: "span 4" }}
+              />
               <TextField
                 fullWidth
                 variant="filled"
@@ -274,6 +323,9 @@ const checkoutSchema = yup.object().shape({
   tipo: yup.string().required("required"),
   ubicacion: yup.string().required("required"),
   image_source: yup.string().required("required"),
+  estado: yup.string().required("required"),
+  observaciones: yup.string().required("required"),
+  pred_distance: yup.string().required("required")
 });
 const initialValues = {
   id_usuario: 0,
@@ -282,6 +334,9 @@ const initialValues = {
   tipo: "",
   ubicacion: "",
   image_source: "",
+  estado: "",
+  observaciones: "Sin observaciones",
+  pred_distance: "N/A"
 };
 
 export default Marcacion;

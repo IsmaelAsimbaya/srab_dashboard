@@ -52,6 +52,9 @@ const MarcacionInfo = () => {
       tipo,
       ubicacion,
       image_source,
+      estado,
+      observaciones,
+      pred_distance
     } = props;
     navigate(`/actMarcacion/${id_marcacion}`, {
       state: {
@@ -61,6 +64,9 @@ const MarcacionInfo = () => {
         tipo,
         ubicacion,
         image_source,
+        estado,
+        observaciones,
+        pred_distance
       },
     });
   };
@@ -110,7 +116,7 @@ const MarcacionInfo = () => {
     {
       field: "id_usuario",
       headerName: "ID Usuario",
-      flex: 1,
+      flex: 0.5,
       cellClassName: "name-column--cell",
     },
     {
@@ -136,6 +142,21 @@ const MarcacionInfo = () => {
     {
       field: "image_source",
       headerName: "Imagen de Marcación",
+      flex: 1,
+    },
+    {
+      field: "estado",
+      headerName: "Estado",
+      flex: 1,
+    },
+    {
+      field: "observaciones",
+      headerName: "Observaciones",
+      flex: 1,
+    },
+    {
+      field: "pred_distance",
+      headerName: "Distancia de Predicción",
       flex: 1,
     },
     {

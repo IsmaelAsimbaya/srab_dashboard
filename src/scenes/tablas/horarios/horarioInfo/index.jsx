@@ -109,7 +109,7 @@ const HorarioInfo = () => {
     {
       field: "diasHorario",
       headerName: "Días y Horarios",
-      flex: 2,
+      flex: 4,
       renderCell: (params) => formatDiasHorario(params.row.diasHorario),
     },
     {

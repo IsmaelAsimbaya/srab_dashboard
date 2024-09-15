@@ -75,7 +75,7 @@ const Lugar = () => {
                 variant="filled"
                 type="text"
                 label="Coordenadas"
-                placeholder="Ej: [0.244452° S, 78.505615° W]"
+                placeholder="Ej: x.xxxxxx, x.xxxxxx"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.cord}
@@ -102,7 +102,7 @@ const Lugar = () => {
                 variant="filled"
                 type="text"
                 label="Eje 1"
-                placeholder="Ej: [0.244452° S, 78.505615° W]"
+                placeholder="Ej: x.xxxxxx, x.xxxxxx"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.axis1}
@@ -116,7 +116,7 @@ const Lugar = () => {
                 variant="filled"
                 type="text"
                 label="Eje 2"
-                placeholder="Ej: [0.244452° S, 78.505615° W]"
+                placeholder="Ej: x.xxxxxx, x.xxxxxx"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.axis2}
@@ -130,7 +130,7 @@ const Lugar = () => {
                 variant="filled"
                 type="text"
                 label="Eje 3"
-                placeholder="Ej: [0.244452° S, 78.505615° W]"
+                placeholder="Ej: x.xxxxxx, x.xxxxxx"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.axis3}
@@ -144,7 +144,7 @@ const Lugar = () => {
                 variant="filled"
                 type="text"
                 label="Eje 4"
-                placeholder="Ej: [0.244452° S, 78.505615° W]"
+                placeholder="Ej: x.xxxxxx, x.xxxxxx"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.axis4}
@@ -179,24 +179,56 @@ const Lugar = () => {
   );
 };
 
+const coordinateRegex = /^-?\d+(\.\d{6,}),\s-?\d+(\.\d{6,})$/;
+
 const checkoutSchema = yup.object().shape({
   nombreLugar: yup.string().required("required"),
   direccionLugar: yup.string().required("required"),
-  cord: yup.string().required("required"),
-  axis1: yup.string().required("required"),
-  axis2: yup.string().required("required"),
-  axis3: yup.string().required("required"),
-  axis4: yup.string().required("required"),
+  cord: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis1: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis2: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis3: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
+  axis4: yup
+    .string()
+    .matches(
+      coordinateRegex,
+      "Formato inválido, debe ser de la forma 0.000000, 0.000000 con al menos 6 dígitos decimales"
+    )
+    .required("required"),
 });
 
 const initialValues = {
   nombreLugar: "",
   direccionLugar: "",
-  cord: "",
-  axis1: "",
-  axis2: "",
-  axis3: "",
-  axis4: "",
+  cord: "0.000000, 0.000000",
+  axis1: "0.000000, 0.000000",
+  axis2: "0.000000, 0.000000",
+  axis3: "0.000000, 0.000000",
+  axis4: "0.000000, 0.000000",
 };
 
 export default Lugar;

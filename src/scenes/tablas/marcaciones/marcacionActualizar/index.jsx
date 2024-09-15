@@ -28,6 +28,9 @@ const ActMarcacion = () => {
     tipo,
     ubicacion,
     image_source,
+    estado,
+    observaciones,
+    pred_distance
   } = location.state || {};
 
   const initialValues = {
@@ -37,6 +40,9 @@ const ActMarcacion = () => {
     tipo: tipo,
     ubicacion: ubicacion,
     image_source: image_source,
+    estado: estado,
+    observaciones: observaciones,
+    pred_distance: pred_distance
   };
 
   const fetchUsuariosOptions = async () => {
@@ -76,6 +82,9 @@ const ActMarcacion = () => {
       tipo: row.tipo,
       ubicacion: row.ubicacion,
       image_source: row.image_source,
+      estado: row.estado,
+      observaciones: row.observaciones,
+      pred_distance: row.pred_distance
     };
     try {
       await axios.put(`${apiUrl}/marcacion/${id_marcacion}`, updatedData);
@@ -98,6 +107,9 @@ const ActMarcacion = () => {
     row.tipo = "";
     row.ubicacion = "";
     row.image_source = "";
+    row.estado = "";
+    row.observaciones = "";
+    row.pred_distance = "";
 
     navigate("/infoMarcaciones");
   };
@@ -215,8 +227,8 @@ const ActMarcacion = () => {
                   <MenuItem value="" disabled>
                     Tipo de Marcación
                   </MenuItem>
-                  <MenuItem value="entrada">Entrada</MenuItem>
-                  <MenuItem value="salida">Salida</MenuItem>
+                  <MenuItem value="Entrada">Entrada</MenuItem>
+                  <MenuItem value="Salida">Salida</MenuItem>
                 </Select>
                 {touched.tipo && errors.tipo && (
                   <FormHelperText>{errors.tipo}</FormHelperText>
@@ -225,7 +237,7 @@ const ActMarcacion = () => {
               <FormControl
                 fullWidth
                 variant="filled"
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 2" }}
                 error={!!touched.ubicacion && !!errors.ubicacion}
               >
                 <InputLabel htmlFor="ubicacion-select" sx={{ fontSize: 14 }}>
@@ -259,6 +271,55 @@ const ActMarcacion = () => {
                   <FormHelperText>{errors.ubicacion}</FormHelperText>
                 )}
               </FormControl>
+              <FormControl
+                fullWidth
+                variant="filled"
+                sx={{ gridColumn: "span 2" }}
+                error={!!touched.estado && !!errors.estado}
+              >
+                <InputLabel htmlFor="estado-select" sx={{ fontSize: 14 }}>
+                  Estado
+                </InputLabel>
+                <Select
+                  value={values.estado}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="estado"
+                  displayEmpty
+                  inputProps={{
+                    name: "estado",
+                    id: "estado-select",
+                  }}
+                >
+                  <MenuItem value="" disabled>
+                    Estado de Marcación
+                  </MenuItem>
+                  <MenuItem value="Presente">Presente</MenuItem>
+                  <MenuItem value="Retraso">Retraso</MenuItem>
+                  <MenuItem value="Salida_anticipada">Salida anticipada</MenuItem>
+                  <MenuItem value="Permiso">Permiso</MenuItem>
+                  <MenuItem value="Vacaciones">Vacaciones</MenuItem>
+                  <MenuItem value="Enfermedad">Enfermedad</MenuItem>
+                  <MenuItem value="Falta">Falta</MenuItem>
+                  <MenuItem value="Falta_justificada">Falta Justificada</MenuItem>
+                </Select>
+                {touched.estado && errors.estado && (
+                  <FormHelperText>{errors.estado}</FormHelperText>
+                )}
+              </FormControl>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Observaciones"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.observaciones}
+                name="observaciones"
+                error={!!touched.observaciones && !!errors.observaciones}
+                helperText={touched.observaciones && errors.observaciones}
+                sx={{ gridColumn: "span 4" }}
+              />
               <TextField
                 fullWidth
                 variant="filled"
@@ -313,6 +374,9 @@ const checkoutSchema = yup.object().shape({
   tipo: yup.string().required("required"),
   ubicacion: yup.string().required("required"),
   image_source: yup.string().required("required"),
+  estado: yup.string().required("required"),
+  observaciones: yup.string().required("required"),
+  pred_distance: yup.string().required("required")
 });
 
 export default ActMarcacion;

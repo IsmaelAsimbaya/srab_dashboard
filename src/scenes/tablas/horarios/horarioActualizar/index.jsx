@@ -94,7 +94,7 @@ const ActHorario = () => {
                 name="nombre"
                 error={!!touched.nombre && !!errors.nombre}
                 helperText={touched.nombre && errors.nombre}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
               />
               <FieldArray name="diasHorario">
                 {({ push, remove }) => (
@@ -167,8 +167,6 @@ const ActHorario = () => {
                           }
                           sx={{ gridColumn: "span 2" }}
                         />
-
-                        {/* Botón para eliminar un día */}
                         <Button
                           type="button"
                           color="secondary"
@@ -179,11 +177,9 @@ const ActHorario = () => {
                         </Button>
                       </Box>
                     ))}
-                    
-                    {/* Botón para agregar un nuevo día */}
                     <Button
                       type="button"
-                      color="primary"
+                      color="secondary"
                       variant="contained"
                       onClick={() => push({ diaSemana: "", horaEntrada: "", horaSalida: "" })}
                       sx={{ gridColumn: "span 4" }}
@@ -221,8 +217,13 @@ const ActHorario = () => {
 
 const timeRegExp = /^([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$/;
 
+const diasValidos = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
+
 const diaSchema = yup.object().shape({
-  diaSemana: yup.string().required("El día de la semana es requerido"),
+  diaSemana: yup
+    .string()
+    .oneOf(diasValidos, "El día de la semana no es válido")
+    .required("El día de la semana es requerido"),
   horaEntrada: yup
     .string()
     .matches(timeRegExp, "El formato debe ser HH:MM:SS")
@@ -235,18 +236,10 @@ const diaSchema = yup.object().shape({
 
 const checkoutSchema = yup.object().shape({
   nombre: yup.string().required("El nombre es requerido"),
-  diasHorario: yup.array().of(diaSchema).required("Debe haber al menos un día de horario"),
+  diasHorario: yup
+    .array()
+    .of(diaSchema)
+    .required("Debe haber al menos un día de horario"),
 });
-
-const initialValues = {
-  nombre: "",
-  diasHorario: [
-    {
-      diaSemana: "",
-      horaEntrada: "",
-      horaSalida: ""
-    }
-  ]
-};
 
 export default ActHorario;
